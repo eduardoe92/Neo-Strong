@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neos: #ff5f00;
+  --color-strong: #1e293b;
+  --color-fondo: #0f172a;
+  --radius-4xl: 2rem;
+}
+
+@layer base {
+  body {
+    @apply text-gray-100 bg-fondo;
+    font-family: "Inter", sans-serif;
+    margin: 0;
+  }
+  button {
+    @apply cursor-pointer;
+  }
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(
+        -83.3333%
+      );
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 10s linear infinite;
+  }
+}
+@utility animate-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
