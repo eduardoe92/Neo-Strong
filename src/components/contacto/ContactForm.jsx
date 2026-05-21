@@ -6,11 +6,23 @@ const ContactForm = () => {
   const [enviado, setEnviado] = useState(false);
   const [cargando, setCargando] = useState(false);
   const [errorEnvio, setErrorEnvio] = useState(false);
+  const [errorEmail, setErrorEmail] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setCargando(true);
     setErrorEnvio(false);
+    setErrorEmail(false);
+
+    const formData = new FormData(formRef.current);
+    const emailValue = formData.get("user_email");
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailValue)) {
+      setErrorEmail(true);
+      return;
+    }
+
+    setCargando(true);
 
     emailjs
       .sendForm(
@@ -54,6 +66,12 @@ const ContactForm = () => {
       {errorEnvio && (
         <div className="p-4 mb-4 text-xs font-bold tracking-wide text-center text-red-400 uppercase border bg-red-500/10 border-red-500/30 rounded-xl animate-slide-up">
           Hubo un problema al enviar el mensaje. Por favor, reintentá en unos minutos.
+        </div>
+      )}
+
+      {errorEmail && (
+        <div className="p-4 mb-4 text-xs font-bold tracking-wide text-center text-red-400 uppercase border bg-red-500/10 border-red-500/30 rounded-xl animate-slide-up">
+          Por favor, ingresá un correo electrónico válido.
         </div>
       )}
 

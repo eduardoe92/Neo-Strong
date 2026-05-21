@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 
 const LoginForm = () => {
@@ -7,6 +7,15 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [mostrarPassword, setMostrarPassword] = useState(false);
   const [alerta, setAlerta] = useState(null);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const sesionActiva = localStorage.getItem("isLoggedIn");
+    if (sesionActiva) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,6 +26,57 @@ const LoginForm = () => {
         mensaje: "Por favor, completá todos los campos.",
       });
       return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setAlerta({
+        tipo: "error",
+        mensaje: "Por favor, ingresá un correo electrónico válido.",
+      });
+      return;
+    }
+
+    const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
+    const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASS;
+
+    const USER_EMAIL = import.meta.env.VITE_USER_EMAIL;
+    const USER_PASS = import.meta.env.VITE_USER_PASS;
+
+    if (email === ADMIN_EMAIL && password === ADMIN_PASS) {
+      setAlerta({
+        tipo: "admin",
+        mensaje:
+          "¡Inicio de sesión exitoso como ADMINISTRADOR! Redireccionando a la tienda...",
+      });
+
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userRole", "admin");
+      localStorage.setItem("userName", "Admin");
+
+      setTimeout(() => {
+        navigate("/productos");
+      }, 2000);
+    } else if (email === USER_EMAIL && password === USER_PASS) {
+      setAlerta({
+        tipo: "exito",
+        mensaje:
+          "¡Ingreso correcto! Bienvenido. Redireccionando a la tienda...",
+      });
+
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userRole", "user");
+      localStorage.setItem("userName", "Usuario");
+
+      setTimeout(() => {
+        navigate("/productos");
+      }, 2000);
+    } else {
+      setAlerta({
+        tipo: "error",
+        mensaje:
+          "Credenciales incorrectas. El correo no existe o la contraseña está mal escrita.",
+      });
     }
   };
 
@@ -99,7 +159,7 @@ const LoginForm = () => {
             </Link>
           </p>
         </div>
-
+        
       </div>
     </div>
   );

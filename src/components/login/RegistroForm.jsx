@@ -29,6 +29,15 @@ const RegistroForm = () => {
       return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setAlerta({
+        tipo: "error",
+        mensaje: "Por favor, ingresá un correo electrónico válido (ejemplo@correo.com).",
+      });
+      return;
+    }
+
     setAlerta({
       tipo: "exito",
       mensaje: `¡Cuenta creada con éxito para ${nombre}! Ya podés iniciar sesión.`,
