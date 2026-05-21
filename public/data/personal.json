@@ -1,0 +1,17 @@
+[
+  {
+    "nombre": "Elena Rivas",
+    "puesto": "Directora de Nutrición",
+    "avatar": "https://images.unsplash.com/photo-1548690312-e3b507d8c110?q=80&w=256&h=256&auto=format&fit=crop"
+  },
+  {
+    "nombre": "Julián Rossi",
+    "puesto": "Coach y asesor deportivo",
+    "avatar": "https://images.unsplash.com/photo-1567013127542-490d757e51fc?q=80&w=256&h=256&auto=format&fit=crop"
+  },
+  {
+    "nombre": "Sofía Martínez",
+    "puesto": "Coach de Alto Rendimiento",
+    "avatar": "https://thumbs.dreamstime.com/b/mujer-deportiva-que-presenta-en-el-desgaste-celeste-pastel-del-deporte-despu%C3%A9s-de-capacitaci%C3%B3n-sobre-fondo-gris-concepto-s%C3%B3lido-173894726.jpg"
+  }
+]
