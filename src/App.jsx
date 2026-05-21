@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import ItemListContainer from './pages/ItemListContainer';
 import ItemDetail from './pages/ItemDetail';
 import Contacto from './pages/Contacto';
-import Login from './pages/Login';
+import Login from './pages/login';
 import Carrito from './pages/Carrito';
 import Registro from './pages/Registro'; 
 
