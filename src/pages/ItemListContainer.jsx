@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch.js";
-import FilterSearch from "../components/Shop/FilterSearch.jsx";
-import ProductGrid from "../components/Shop/ProductGrid.jsx";
-import Pagination from "../components/Shop/Pagination.jsx";
+import FilterSearch from "../components/shop/FilterSearch.jsx";
+import ProductGrid from "../components/shop/ProductGrid.jsx";
+import Pagination from "../components/shop/Pagination.jsx";
 
 const ItemListContainer = () => {
   const { categoria } = useParams();
