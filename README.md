@@ -40,7 +40,7 @@ Si querés clonar el repositorio y correrlo en tu máquina, seguí estos pasos:
 
     ```bash
     cd Neo-Strong
-    npm install:
+    npm install
     ```
 
 3.  **Configurar las Variables de Entorno:**
@@ -48,10 +48,11 @@ Si querés clonar el repositorio y correrlo en tu máquina, seguí estos pasos:
     Creá un archivo .env.local en la raíz del proyecto y configurá tus llaves de EmailJS (guíate con el archivo .env.example incluido):
 
     ```bash
-    Fragmento de código
     VITE_EMAILJS_SERVICE_ID=tu_service_id
+    
     VITE_EMAILJS_TEMPLATE_ID=tu_template_id
-    VITE_EMAILJS_PUBLIC_KEY=tu_public_key 4.
+    
+    VITE_EMAILJS_PUBLIC_KEY=tu_public_key 4
     ```
 
 4.  **Correr el servidor de desarrollo:**
