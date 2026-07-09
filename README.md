@@ -45,9 +45,7 @@ Si querés clonar el repositorio y correrlo en tu máquina, seguí estos pasos:
 
 3.  **Configurar las Variables de Entorno:**
 
-    ```bash
     Creá un archivo .env.local en la raíz del proyecto y configurá tus llaves de EmailJS (guíate con el archivo .env.example incluido):
-    ```
 
     ```bash
     Fragmento de código
@@ -61,15 +59,3 @@ Si querés clonar el repositorio y correrlo en tu máquina, seguí estos pasos:
     ```bash
     npm run dev
     ```
-
-## 🎯 Próximos Pasos
-
-- [ ] Funcionamiento del login de ADMIN y Usuario Final.
-
-- [ ] Integración de catálogo de productos dinámico.
-
-- [ ] Implementación de carrito de compras.
-
-- [ ] Desarrollo del Backend completo para la gestión de usuarios, stock y pasarela de pagos.
-
-- [ ] Detalles varios.
