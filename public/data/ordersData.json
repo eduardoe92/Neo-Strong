@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "customer_name": "Juan Pérez",
+    "email": "juan.perez@mail.com",
+    "total": 15000,
+    "status": "finalizado"
+  },
+  {
+    "id": 2,
+    "customer_name": "Ana Gómez",
+    "email": "ana.gomez@mail.com",
+    "total": 8500,
+    "status": "pendiente_pago"
+  },
+  {
+    "id": 3,
+    "customer_name": "Carlos Ruiz",
+    "email": "carlos.ruiz@mail.com",
+    "total": 22000,
+    "status": "enviado"
+  },
+  {
+    "id": 4,
+    "customer_name": "Beatriz Sol",
+    "email": "beatriz.sol@mail.com",
+    "total": 12000,
+    "status": "pendiente_envio"
+  },
+  {
+    "id": 5,
+    "customer_name": "Luis Fernández",
+    "email": "luis.fernandez@mail.com",
+    "total": 18700,
+    "status": "finalizado"
+  },
+  {
+    "id": 6,
+    "customer_name": "María López",
+    "email": "maria.lopez@mail.com",
+    "total": 9900,
+    "status": "enviado"
+  },
+  {
+    "id": 7,
+    "customer_name": "Pedro Ramírez",
+    "email": "pedro.ramirez@mail.com",
+    "total": 13400,
+    "status": "pendiente_pago"
+  },
+  {
+    "id": 8,
+    "customer_name": "Sofía Martínez",
+    "email": "sofia.martinez@mail.com",
+    "total": 20500,
+    "status": "finalizado"
+  },
+  {
+    "id": 9,
+    "customer_name": "Jorge Castillo",
+    "email": "jorge.castillo@mail.com",
+    "total": 7600,
+    "status": "pendiente_envio"
+  },
+  {
+    "id": 10,
+    "customer_name": "Laura Herrera",
+    "email": "laura.herrera@mail.com",
+    "total": 14200,
+    "status": "enviado"
+  },
+  {
+    "id": 11,
+    "customer_name": "Ricardo Díaz",
+    "email": "ricardo.diaz@mail.com",
+    "total": 11300,
+    "status": "finalizado"
+  },
+  {
+    "id": 12,
+    "customer_name": "Valentina Rojas",
+    "email": "valentina.rojas@mail.com",
+    "total": 16800,
+    "status": "pendiente_pago"
+  },
+  {
+    "id": 13,
+    "customer_name": "Miguel Torres",
+    "email": "miguel.torres@mail.com",
+    "total": 19200,
+    "status": "enviado"
+  },
+  {
+    "id": 14,
+    "customer_name": "Camila Vega",
+    "email": "camila.vega@mail.com",
+    "total": 8100,
+    "status": "pendiente_envio"
+  },
+  {
+    "id": 15,
+    "customer_name": "Daniel Morales",
+    "email": "daniel.morales@mail.com",
+    "total": 15400,
+    "status": "finalizado"
+  },
+  {
+    "id": 16,
+    "customer_name": "Gabriela Cruz",
+    "email": "gabriela.cruz@mail.com",
+    "total": 13200,
+    "status": "enviado"
+  },
+  {
+    "id": 17,
+    "customer_name": "José Navarro",
+    "email": "jose.navarro@mail.com",
+    "total": 9700,
+    "status": "pendiente_pago"
+  },
+  {
+    "id": 18,
+    "customer_name": "Paula Silva",
+    "email": "paula.silva@mail.com",
+    "total": 21900,
+    "status": "finalizado"
+  },
+  {
+    "id": 19,
+    "customer_name": "Fernando Acosta",
+    "email": "fernando.acosta@mail.com",
+    "total": 8800,
+    "status": "pendiente_envio"
+  },
+  {
+    "id": 20,
+    "customer_name": "Natalia Pineda",
+    "email": "natalia.pineda@mail.com",
+    "total": 14700,
+    "status": "enviado"
+  },
+  {
+    "id": 21,
+    "customer_name": "Andrés Romero",
+    "email": "andres.romero@mail.com",
+    "total": 17700,
+    "status": "finalizado"
+  },
+  {
+    "id": 22,
+    "customer_name": "Lucía Mendoza",
+    "email": "lucia.mendoza@mail.com",
+    "total": 12300,
+    "status": "pendiente_pago"
+  },
+  {
+    "id": 23,
+    "customer_name": "Hugo Salas",
+    "email": "hugo.salas@mail.com",
+    "total": 20600,
+    "status": "enviado"
+  },
+  {
+    "id": 24,
+    "customer_name": "Elena Fuentes",
+    "email": "elena.fuentes@mail.com",
+    "total": 9100,
+    "status": "pendiente_envio"
+  },
+  {
+    "id": 25,
+    "customer_name": "Diego Campos",
+    "email": "diego.campos@mail.com",
+    "total": 16100,
+    "status": "finalizado"
+  },
+  {
+    "id": 26,
+    "customer_name": "Patricia León",
+    "email": "patricia.leon@mail.com",
+    "total": 13600,
+    "status": "enviado"
+  },
+  {
+    "id": 27,
+    "customer_name": "Raúl Guerrero",
+    "email": "raul.guerrero@mail.com",
+    "total": 9800,
+    "status": "pendiente_pago"
+  },
+  {
+    "id": 28,
+    "customer_name": "Isabel Ortega",
+    "email": "isabel.ortega@mail.com",
+    "total": 18300,
+    "status": "finalizado"
+  },
+  {
+    "id": 29,
+    "customer_name": "Cristian Molina",
+    "email": "cristian.molina@mail.com",
+    "total": 11000,
+    "status": "pendiente_envio"
+  },
+  {
+    "id": 30,
+    "customer_name": "Verónica Cabrera",
+    "email": "veronica.cabrera@mail.com",
+    "total": 17200,
+    "status": "enviado"
+  },
+  {
+    "id": 31,
+    "customer_name": "Kevin Flores",
+    "email": "kevin.flores@mail.com",
+    "total": 9500,
+    "status": "finalizado"
+  },
+  {
+    "id": 32,
+    "customer_name": "Andrea Peña",
+    "email": "andrea.pena@mail.com",
+    "total": 21400,
+    "status": "pendiente_pago"
+  },
+  {
+    "id": 33,
+    "customer_name": "Samuel Vargas",
+    "email": "samuel.vargas@mail.com",
+    "total": 15900,
+    "status": "enviado"
+  },
+  {
+    "id": 34,
+    "customer_name": "Juliana Arias",
+    "email": "juliana.arias@mail.com",
+    "total": 10300,
+    "status": "pendiente_envio"
+  },
+  {
+    "id": 35,
+    "customer_name": "Eduardo Núñez",
+    "email": "eduardo.nunez@mail.com",
+    "total": 19500,
+    "status": "finalizado"
+  },
+  {
+    "id": 36,
+    "customer_name": "Diana Castro",
+    "email": "diana.castro@mail.com",
+    "total": 8800,
+    "status": "enviado"
+  },
+  {
+    "id": 37,
+    "customer_name": "Tomás Bravo",
+    "email": "tomas.bravo@mail.com",
+    "total": 14400,
+    "status": "pendiente_pago"
+  },
+  {
+    "id": 38,
+    "customer_name": "Carolina Soto",
+    "email": "carolina.soto@mail.com",
+    "total": 20900,
+    "status": "finalizado"
+  },
+  {
+    "id": 39,
+    "customer_name": "Ángel Reyes",
+    "email": "angel.reyes@mail.com",
+    "total": 12600,
+    "status": "pendiente_envio"
+  },
+  {
+    "id": 40,
+    "customer_name": "Lorena Delgado",
+    "email": "lorena.delgado@mail.com",
+    "total": 16700,
+    "status": "enviado"
+  },
+  {
+    "id": 41,
+    "customer_name": "Iván Méndez",
+    "email": "ivan.mendez@mail.com",
+    "total": 9800,
+    "status": "finalizado"
+  },
+  {
+    "id": 42,
+    "customer_name": "Noelia Cabral",
+    "email": "noelia.cabral@mail.com",
+    "total": 15000,
+    "status": "pendiente_pago"
+  },
+  {
+    "id": 43,
+    "customer_name": "Emilio Paz",
+    "email": "emilio.paz@mail.com",
+    "total": 18800,
+    "status": "enviado"
+  },
+  {
+    "id": 44,
+    "customer_name": "Claudia Gil",
+    "email": "claudia.gil@mail.com",
+    "total": 11700,
+    "status": "pendiente_envio"
+  },
+  {
+    "id": 45,
+    "customer_name": "Matías Peralta",
+    "email": "matias.peralta@mail.com",
+    "total": 22600,
+    "status": "finalizado"
+  },
+  {
+    "id": 46,
+    "customer_name": "Rocío Ibarra",
+    "email": "rocio.ibarra@mail.com",
+    "total": 8700,
+    "status": "enviado"
+  },
+  {
+    "id": 47,
+    "customer_name": "Sebastián Luna",
+    "email": "sebastian.luna@mail.com",
+    "total": 13200,
+    "status": "pendiente_pago"
+  },
+  {
+    "id": 48,
+    "customer_name": "Mónica Vidal",
+    "email": "monica.vidal@mail.com",
+    "total": 17800,
+    "status": "finalizado"
+  },
+  {
+    "id": 49,
+    "customer_name": "Oscar Cordero",
+    "email": "oscar.cordero@mail.com",
+    "total": 9400,
+    "status": "pendiente_envio"
+  },
+  {
+    "id": 50,
+    "customer_name": "Tatiana Blanco",
+    "email": "tatiana.blanco@mail.com",
+    "total": 16400,
+    "status": "enviado"
+  }
+]
