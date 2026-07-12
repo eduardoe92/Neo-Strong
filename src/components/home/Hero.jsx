@@ -17,24 +17,24 @@ const Hero = () => {
     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
 
+  useEffect(() => {
+    if (!slides || slides.length === 0) return;
 
-useEffect(() => {
-  if (!slides || slides.length === 0) return;
-  
-  const timer = setInterval(() => {
-    setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  }, 6000);
-  
-  return () => clearInterval(timer);
-}, [slides]);
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    }, 6000);
+
+    return () => clearInterval(timer);
+  }, [slides]);
 
   if (!slides || slides.length === 0) {
-    return <div className="h-[85vh] w-full bg-fondo border border-gray-800 rounded-4xl animate-pulse" />;
+    return (
+      <div className="h-[85vh] w-full bg-fondo border border-gray-800 rounded-4xl animate-pulse" />
+    );
   }
 
   return (
     <section className="relative h-[85vh] w-full flex items-center justify-center rounded-4xl overflow-hidden bg-fondo border border-gray-900 shadow-2xl group/hero">
-
       {slides.map((slide, index) => (
         <div
           key={slide.id}
