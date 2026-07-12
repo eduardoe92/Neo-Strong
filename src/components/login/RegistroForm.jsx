@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
+import { authService } from "../../services/authService";
 
 const RegistroForm = () => {
   const [nombre, setNombre] = useState("");
@@ -11,7 +13,9 @@ const RegistroForm = () => {
   const [mostrarPassword, setMostrarPassword] = useState(false);
   const [alerta, setAlerta] = useState(null);
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (
@@ -33,15 +37,47 @@ const RegistroForm = () => {
     if (!emailRegex.test(email)) {
       setAlerta({
         tipo: "error",
-        mensaje: "Por favor, ingresá un correo electrónico válido (ejemplo@correo.com).",
+        mensaje:
+          "Por favor, ingresá un correo electrónico válido (ejemplo@correo.com).",
       });
       return;
     }
 
-    setAlerta({
-      tipo: "exito",
-      mensaje: `¡Cuenta creada con éxito para ${nombre}! Ya podés iniciar sesión.`,
-    });
+    try {
+      const datosUsuario = {
+        nombre,
+        email,
+        telefono,
+        direccion,
+        fechaNacimiento,
+        password,
+      };
+
+      await authService.register(datosUsuario);
+
+      setAlerta({
+        tipo: "exito",
+        mensaje: `¡Cuenta creada con éxito para ${nombre}! Redireccionando al inicio de sesión...`,
+      });
+
+      setNombre("");
+      setEmail("");
+      setTelefono("");
+      setDireccion("");
+      setFechaNacimiento("");
+      setPassword("");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2500);
+    } catch (error) {
+      setAlerta({
+        tipo: "error",
+        mensaje:
+          error.message ||
+          "Hubo un problema al registrar tu cuenta. Inténtalo de nuevo.",
+      });
+    }
   };
 
   return (

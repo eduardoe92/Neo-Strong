@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import { authService } from "../../services/authService";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -12,12 +13,12 @@ const LoginForm = () => {
 
   useEffect(() => {
     const sesionActiva = localStorage.getItem("isLoggedIn");
-    if (sesionActiva) {
+    if (sesionActiva === "true") {
       navigate("/");
     }
   }, [navigate]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -37,45 +38,43 @@ const LoginForm = () => {
       return;
     }
 
-    const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
-    const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASS;
+    try {
+      const respuesta = await authService.login(email, password);
 
-    const USER_EMAIL = import.meta.env.VITE_USER_EMAIL;
-    const USER_PASS = import.meta.env.VITE_USER_PASS;
-
-    if (email === ADMIN_EMAIL && password === ADMIN_PASS) {
-      setAlerta({
-        tipo: "admin",
-        mensaje:
-          "¡Inicio de sesión exitoso como ADMINISTRADOR! Redireccionando a la tienda...",
-      });
+      const nombreFinal =
+        respuesta.nombre ||
+        respuesta.user?.name ||
+        respuesta.data?.name ||
+        "Usuario";
+      const rolFinal = respuesta.role || respuesta.user?.role || "user";
+      const tokenFinal = respuesta.token || respuesta.data?.token;
 
       localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("userRole", "admin");
-      localStorage.setItem("userName", "Admin");
+      localStorage.setItem("token", tokenFinal);
+      localStorage.setItem("userRole", rolFinal);
+      localStorage.setItem("userName", nombreFinal);
 
-      setTimeout(() => {
-        navigate("/productos");
-      }, 2000);
-    } else if (email === USER_EMAIL && password === USER_PASS) {
+      window.dispatchEvent(new Event("loginSuccess"));
+
       setAlerta({
-        tipo: "exito",
+        tipo: rolFinal === "admin" ? "admin" : "exito",
         mensaje:
-          "¡Ingreso correcto! Bienvenido. Redireccionando a la tienda...",
+          rolFinal === "admin"
+            ? "¡Bienvenido Administrador!"
+            : `¡Ingreso correcto! Bienvenido, ${nombreFinal}.`,
       });
 
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("userRole", "user");
-      localStorage.setItem("userName", "Usuario");
+      const rutaDestino = rolFinal === "admin" ? "/admin" : "/";
+      const tiempoRedireccion = rolFinal === "admin" ? 1000 : 2000;
 
       setTimeout(() => {
-        navigate("/productos");
-      }, 2000);
-    } else {
+        navigate(rutaDestino);
+      }, tiempoRedireccion);
+    } catch (error) {
       setAlerta({
         tipo: "error",
         mensaje:
-          "Credenciales incorrectas. El correo no existe o la contraseña está mal escrita.",
+          error.message || "Credenciales incorrectas o problemas de conexión.",
       });
     }
   };
@@ -142,7 +141,7 @@ const LoginForm = () => {
 
           <button
             type="submit"
-            className="w-full py-4 text-sm font-black uppercase  tracking-wider text-white transition-all duration-300 rounded-full shadow-lg bg-neos from-neos hover:shadow-neos/10 hover:scale-[1.01] active:scale-98 cursor-pointer mt-2 hover:bg-orange-600"
+            className="w-full py-4 text-sm font-black uppercase tracking-wider text-white transition-all duration-300 rounded-full shadow-lg bg-neos hover:shadow-neos/10 hover:scale-[1.01] active:scale-98 cursor-pointer mt-2 hover:bg-orange-600"
           >
             Entrar
           </button>
@@ -159,7 +158,6 @@ const LoginForm = () => {
             </Link>
           </p>
         </div>
-        
       </div>
     </div>
   );
