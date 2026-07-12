@@ -31,8 +31,8 @@ const Pagination = ({ paginaActual, totalPaginas, setPaginaActual }) => {
               key={numeroPagina}
               onClick={() => setPaginaActual(numeroPagina)}
               className={`h-7 rounded-full text-xs font-black transition-all duration-300 flex items-center justify-center cursor-pointer ${
-                esActiva 
-                  ? "w-10 bg-linear-to-r from-neos to-orange-500 text-white shadow-xs shadow-neos/40" 
+                esActiva
+                  ? "w-10 bg-linear-to-r from-neos to-orange-500 text-white shadow-xs shadow-neos/40"
                   : "w-7 bg-gray-900 text-gray-500 border border-gray-400/60 hover:text-neos hover:border-neos/30/50 hover:bg-strong"
               }`}
             >

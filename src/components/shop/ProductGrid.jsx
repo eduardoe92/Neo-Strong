@@ -7,7 +7,7 @@ const ProductGrid = ({ items, limpiarFiltro }) => {
         <p className="text-base font-bold text-gray-400">
           No encontramos productos que coincidan con tu búsqueda.
         </p>
-        <button 
+        <button
           onClick={limpiarFiltro}
           className="mt-4 text-xs font-black uppercase cursor-pointer text-neos hover:underline "
         >

@@ -1,23 +1,24 @@
 import { Link } from "react-router-dom";
 
 const Item = ({ id, nombre, precio, categoria, imagen, descripcion }) => {
-  const precioFormateado = new Intl.NumberFormat('es-AR', {
-    style: 'currency',
-    currency: 'ARS',
-    maximumFractionDigits: 0
+  const precioFormateado = new Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+    maximumFractionDigits: 0,
   }).format(precio);
+
+  const categoriaValida = categoria;
 
   return (
     <article className="flex flex-col h-full p-5 transition-all duration-300 border shadow-xl border-neos/30 bg-strong rounded-4xl hover:-translate-y-1 group">
-      
       <div className="relative w-full h-56 overflow-hidden border border-gray-400 rounded-3xl bg-fondo">
         <img
           src={imagen}
           alt={nombre}
           className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
         />
-        <span className="absolute top-3 left-3 px-2.5 py-1 text-[9px] font-black tracking-widest text-neos bg-fondo/80 backdrop-blur-xs border border-neos/30/30 rounded-md uppercase">
-          {categoria}
+        <span className="absolute top-3 left-3 px-2.5 py-1 text-[9px] font-black tracking-widest text-neos bg-fondo/80 backdrop-blur-xs border border-neos/30 rounded-md uppercase">
+          {categoriaValida}
         </span>
       </div>
 
@@ -25,7 +26,7 @@ const Item = ({ id, nombre, precio, categoria, imagen, descripcion }) => {
         <h3 className="text-lg font-black tracking-wide text-gray-100 uppercase truncate transition-colors duration-300 group-hover:text-neos">
           {nombre}
         </h3>
-        
+
         <p className="flex-1 text-sm font-medium leading-relaxed text-gray-400 line-clamp-2">
           {descripcion}
         </p>
@@ -43,7 +44,6 @@ const Item = ({ id, nombre, precio, categoria, imagen, descripcion }) => {
           </Link>
         </div>
       </div>
-
     </article>
   );
 };
