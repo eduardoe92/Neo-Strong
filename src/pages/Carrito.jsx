@@ -1,9 +1,8 @@
-import LoginForm from "../components/login/LoginForm";
-
+import CarritoView from "../components/shop/CarritoView";
 const Login = () => {
   return (
     <div className="page-container">
-      <LoginForm />
+      <CarritoView />
     </div>
   );
 };
