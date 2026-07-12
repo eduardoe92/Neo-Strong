@@ -6,7 +6,7 @@ export default function AdminOrdersView() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/public/data/ordersData.json")
+    fetch("/data/ordersData.json")
       .then((response) => response.json())
       .then((data) => {
         setOrders(data);
