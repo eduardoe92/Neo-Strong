@@ -1,82 +1,107 @@
 import { useState, useEffect } from "react";
+import { FaChartLine, FaShoppingCart, FaEye, FaEyeSlash } from "react-icons/fa";
 import { adminService } from "../../services/adminService";
-import {
-  FaChartLine,
-  FaBox,
-  FaExclamationTriangle,
-  FaShoppingCart,
-} from "react-icons/fa";
+import StatCard from "../../components/admin/dashboard/StatCard";
+import LowStockAlert from "../../components/admin/dashboard/LowStockAlert";
+import HighStockReport from "../../components/admin/dashboard/HighStockReport";
+import OrderAlert from "../../components/admin/dashboard/OrderAlert";
 
 export default function DashboardView() {
-  const [data, setData] = useState({ revenue: 0, order_count: 0, alerts: [] });
+  const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showRevenue, setShowRevenue] = useState(false);
+
+  const [stats] = useState({ revenue: 15450000, order_count: 15 });
 
   useEffect(() => {
-    adminService.getDashboard().then(setData);
+    const loadDashboardData = async () => {
+      try {
+        setIsLoading(true);
+
+        const data = await adminService.getProducts();
+        const productList = Array.isArray(data) ? data : data.products || [];
+        setProducts(productList);
+
+        const response = await fetch("/data/ordersData.json");
+        const orderData = await response.json();
+        setOrders(orderData);
+      } catch (error) {
+        console.error("Error al cargar datos del dashboard:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadDashboardData();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="py-10 text-center text-white">
+        Cargando datos de la base de datos...
+      </div>
+    );
+  }
+
+  const lowStockProducts = products.filter((p) => p.stock < 8);
 
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-black text-white uppercase">
-        Resumen del <span className="text-neos">Negocio</span>
+        Resumen de <span className="text-neos">Neo-Strong</span>
       </h1>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <div className="flex items-center gap-4 p-6 border border-gray-800 bg-strong rounded-2xl">
-          <div className="p-4 bg-neos/10 text-neos rounded-xl">
-            <FaChartLine size={30} />
-          </div>
-          <div>
-            <p className="text-xs font-black text-gray-400 uppercase">
-              Ingresos Totales
-            </p>
-            <h2 className="text-2xl font-black text-white">
-              $ {data.revenue.toLocaleString()}
-            </h2>
-          </div>
-        </div>
-        <div className="flex items-center gap-4 p-6 border border-gray-800 bg-strong rounded-2xl">
-          <div className="p-4 text-orange-500 bg-orange-500/10 rounded-xl">
-            <FaShoppingCart size={30} />
-          </div>
-          <div>
-            <p className="text-xs font-black text-gray-400 uppercase">
-              Pedidos Finalizados
-            </p>
-            <h2 className="text-2xl font-black text-white">
-              {data.order_count}
-            </h2>
-          </div>
-        </div>
+        <StatCard
+          title="Ingresos Totales"
+          value={
+            showRevenue ? `$ ${stats.revenue.toLocaleString()}` : "*********"
+          }
+          icon={FaChartLine}
+          colorClass="bg-neos/10 text-neos"
+          rightIcon={
+            <button
+              onMouseDown={() => setShowRevenue(true)}
+              onMouseUp={() => setShowRevenue(false)}
+              onMouseLeave={() => setShowRevenue(false)}
+              onTouchStart={() => setShowRevenue(true)}
+              onTouchEnd={() => setShowRevenue(false)}
+              className="p-6 transition-colors rounded-full hover:bg-white/10"
+            >
+              {showRevenue ? <FaEyeSlash size={30} /> : <FaEye size={30} />}
+            </button>
+          }
+        />
+        <StatCard
+          title="Pedidos Finalizados"
+          value={stats.order_count}
+          icon={FaShoppingCart}
+          colorClass="bg-orange-500/10 text-orange-500"
+        />
       </div>
 
-      <div className="p-6 border border-gray-800 bg-strong rounded-2xl">
-        <div className="flex items-center gap-2 mb-6 text-red-500">
-          <FaExclamationTriangle size={24} />
-          <FaBox size={24} />
-          <h2 className="text-xl font-black uppercase">
-            Alertas de Stock Bajo
-          </h2>
-        </div>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <OrderAlert
+          title="En camino"
+          orders={orders.filter((o) => o.status === "enviado")}
+          statusType="Enviando"
+        />
+        <OrderAlert
+          title="Pendiente de Envío"
+          orders={orders.filter((o) => o.status === "pendiente_envio")}
+          statusType="Pendiente_envio"
+        />
+        <OrderAlert
+          title="Pendiente de Pago"
+          orders={orders.filter((o) => o.status === "pendiente_pago")}
+          statusType="Pendiente_pago"
+        />
+      </div>
 
-        {data.alerts.length > 0 ? (
-          <ul className="space-y-2">
-            {data.alerts.map((prod) => (
-              <li
-                key={prod.id}
-                className="flex justify-between p-3 text-sm border border-gray-800 rounded-lg bg-fondo"
-              >
-                <span className="font-bold text-white">{prod.name}</span>
-                <span className="font-black text-red-500">
-                  Stock: {prod.stock}
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="font-bold text-green-500">
-            ¡Todo el inventario está en niveles óptimos!
-          </p>
-        )}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <HighStockReport products={products} />
+        <LowStockAlert alerts={lowStockProducts} />
       </div>
     </div>
   );

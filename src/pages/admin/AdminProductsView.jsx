@@ -3,8 +3,8 @@ import { LuPlus } from "react-icons/lu";
 import { adminService } from "../../services/adminService";
 import ProductsTable from "../../components/admin/products/ProductsTable";
 import ProductFormModal from "../../components/admin/products/ProductFormModal";
-import SearchBar from "../../components/shop/SearchBar";
-import Pagination from "../../components/shop/Pagination";
+import AdminSearchBar from "../../components/admin/products/AdminSearchBar";
+import NumericPagination from "../../components/admin/products/NumericPagination";
 
 export default function AdminProductsView() {
   const [products, setProducts] = useState([]);
@@ -18,7 +18,7 @@ export default function AdminProductsView() {
     key: "name",
     direction: "asc",
   });
-  const itemsPerPage = 10;
+  const itemsPerPage = 8;
 
   const fetchProducts = useCallback(async () => {
     if (products.length === 0) setIsLoading(true);
@@ -96,23 +96,21 @@ export default function AdminProductsView() {
   };
 
   const handleToggleStatus = async (product) => {
-  const id = product.id || product._id;
-  const nextActiveState = !product.active;
+    const id = product.id || product._id;
+    const nextActiveState = !product.active;
 
-  try {
-    await adminService.toggleProduct(id, nextActiveState);
+    try {
+      await adminService.toggleProduct(id, nextActiveState);
 
-    setProducts((prev) =>
-      prev.map((p) =>
-        (p.id === id || p._id === id)
-          ? { ...p, active: nextActiveState }
-          : p
-      )
-    );
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
+      setProducts((prev) =>
+        prev.map((p) =>
+          p.id === id || p._id === id ? { ...p, active: nextActiveState } : p,
+        ),
+      );
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const filteredProducts = products.filter(
     (p) =>
@@ -164,10 +162,12 @@ export default function AdminProductsView() {
         </button>
       </div>
 
-      <SearchBar
+      <AdminSearchBar
         value={searchTerm}
-        onChange={setSearchTerm}
-        setPaginaActual={setCurrentPage}
+        onChange={(val) => {
+          setSearchTerm(val);
+          setCurrentPage(1);
+        }}
         placeholder="Buscar por nombre o categoría..."
       />
 
@@ -197,7 +197,7 @@ export default function AdminProductsView() {
         />
       )}
 
-      <Pagination
+      <NumericPagination
         currentPage={currentPage}
         totalItems={sortedProducts.length}
         itemsPerPage={itemsPerPage}

@@ -1,20 +1,27 @@
 import { useState, useEffect } from "react";
-import { adminService } from "../../services/adminService";
 import OrdersTable from "../../components/admin/orders/OrdersTable";
 
 export default function AdminOrdersView() {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    adminService.getOrders().then(setOrders);
+    fetch("/public/data/ordersData.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setOrders(data);
+        setLoading(false);
+      })
+      .catch((error) => console.error("Error cargando los pedidos:", error));
   }, []);
 
-  const handleStatusChange = async (orderId, newStatus) => {
-    await adminService.updateOrderStatus(orderId, newStatus);
+  const handleStatusChange = (orderId, newStatus) => {
     setOrders((prev) =>
       prev.map((o) => (o.id === orderId ? { ...o, status: newStatus } : o)),
     );
   };
+
+  if (loading) return <div className="text-white">Cargando pedidos...</div>;
 
   return (
     <div className="space-y-6">
