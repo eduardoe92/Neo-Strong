@@ -30,7 +30,7 @@ const Footer = () => {
           </div>
 
           <hr className="w-full my-0 border-t border-neos md:hidden" />
-          
+
           <div className="flex flex-wrap justify-center gap-4 sm:justify-center md:justify-center lg:justify-end">
             {equipo?.map((p, i) => (
               <div
