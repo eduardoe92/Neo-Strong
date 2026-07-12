@@ -29,7 +29,7 @@ const ContactForm = () => {
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         formRef.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       )
       .then(
         () => {
@@ -42,7 +42,7 @@ const ContactForm = () => {
           console.error("Error al enviar el mail:", error);
           setCargando(false);
           setErrorEnvio(true);
-        }
+        },
       );
   };
 
@@ -51,21 +51,23 @@ const ContactForm = () => {
       <h2 className="mb-6 text-2xl font-black tracking-wider text-center text-gray-300 uppercase md:text-3xl md:text-left">
         ¿Tenés dudas con tu plan?
       </h2>
-      
+
       {enviado && (
         <div className="p-6 mb-4 space-y-2 text-center border bg-fondo rounded-2xl border-neos/30/40 animate-slide-up">
           <p className="text-sm font-black tracking-widest uppercase text-neos">
             ¡Mensaje Recibido!
           </p>
           <p className="text-xs font-medium text-gray-400">
-            Tu consulta ya está en manos de nuestros coaches. Te responderemos en menos de 24 horas hábiles.
+            Tu consulta ya está en manos de nuestros coaches. Te responderemos
+            en menos de 24 horas hábiles.
           </p>
         </div>
       )}
 
       {errorEnvio && (
         <div className="p-4 mb-4 text-xs font-bold tracking-wide text-center text-red-400 uppercase border bg-red-500/10 border-red-500/30 rounded-xl animate-slide-up">
-          Hubo un problema al enviar el mensaje. Por favor, reintentá en unos minutos.
+          Hubo un problema al enviar el mensaje. Por favor, reintentá en unos
+          minutos.
         </div>
       )}
 
@@ -124,7 +126,7 @@ const ContactForm = () => {
             >
               {cargando ? "Enviando fuerza..." : "Enviar Mensaje"}
             </button>
-            
+
             <p className="text-[11px] font-medium tracking-wide text-center text-gray-500 uppercase">
               Nos pondremos en contacto con vos lo más pronto posible.
             </p>

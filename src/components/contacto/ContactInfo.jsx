@@ -6,7 +6,6 @@ const ContactInfo = () => {
 
   return (
     <section className="grid items-start grid-cols-1 gap-12 text-center md:grid-cols-2">
-      
       <div className="p-8 space-y-4 border shadow-xl border-neos/30 bg-strong rounded-3xl">
         <h2 className="text-2xl font-black tracking-wider text-gray-300 uppercase">
           Ubicación
@@ -25,7 +24,7 @@ const ContactInfo = () => {
           </p>
         </div>
       </div>
-      
+
       <div className="flex flex-col justify-center h-full p-8 space-y-4 border shadow-xl border-neos/30 bg-strong rounded-3xl">
         <h2 className="text-2xl font-black tracking-wider text-gray-300 uppercase">
           Comunidad
@@ -47,7 +46,7 @@ const ContactInfo = () => {
           ))}
         </div>
       </div>
-      
+
       <div className="pt-8 space-y-6 border-t border-neos/30 md:col-span-2">
         <h2 className="text-3xl font-black tracking-tight text-center text-gray-300 uppercase">
           Asesoramiento Staff
