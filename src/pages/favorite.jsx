@@ -1,4 +1,4 @@
-import FavoritesView from "../components/shop/FavoritesView.jsx";
+import FavoritesView from "../components/shop/favoritesView.jsx";
 
 const Favorites = () => {
   return (
