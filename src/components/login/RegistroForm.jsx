@@ -81,7 +81,7 @@ const RegistroForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[85vh] px-4 py-8 bg-fondo">
+    <div className="flex items-center justify-center min-h-[60vh] px-4 py-8 bg-fondo">
       <div className="w-full max-w-md p-8 border shadow-2xl border-neos/30 bg-strong backdrop-blur-md rounded-2xl">
         <h2 className="mb-2 text-3xl font-black tracking-tight text-center text-gray-100 uppercase">
           Crear Cuenta
