@@ -12,9 +12,9 @@ const SortIcon = ({ column, sortConfig }) => {
   if (sortConfig?.key !== column)
     return <FaSort className="inline ml-2 opacity-30" />;
   return sortConfig.direction === "asc" ? (
-    <FaSortUp className="inline ml-2" />
+    <FaSortUp className="inline ml-2 text-neos" />
   ) : (
-    <FaSortDown className="inline ml-2" />
+    <FaSortDown className="inline ml-2 text-neos" />
   );
 };
 
