@@ -38,8 +38,16 @@ export default function DashboardView() {
 
   if (isLoading) {
     return (
-      <div className="py-10 text-center text-white">
-        Cargando datos de la base de datos...
+      <div className="flex flex-col items-center justify-center h-[80vh] text-center">
+        <div className="w-12 h-12 border-4 rounded-full border-t-neos border-gray-700/50 animate-spin" />
+        <div className="mt-6 space-y-1">
+          <h3 className="text-xl font-black tracking-wide text-gray-200 uppercase">
+            Cargando Dashboard
+          </h3>
+          <p className="max-w-xs mx-auto text-sm font-medium leading-relaxed text-gray-400">
+            Obteniendo métricas y estado del inventario...
+          </p>
+        </div>
       </div>
     );
   }

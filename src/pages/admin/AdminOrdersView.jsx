@@ -21,7 +21,21 @@ export default function AdminOrdersView() {
     );
   };
 
-  if (loading) return <div className="text-white">Cargando pedidos...</div>;
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-[60vh] text-center">
+        <div className="w-12 h-12 border-4 rounded-full border-t-neos border-gray-700/50 animate-spin" />
+        <div className="mt-6 space-y-1">
+          <h3 className="text-xl font-black tracking-wide text-gray-200 uppercase">
+            Cargando Pedidos
+          </h3>
+          <p className="max-w-xs mx-auto text-sm font-medium leading-relaxed text-gray-400">
+            Estamos obteniendo la información logística. Por favor, espera...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
