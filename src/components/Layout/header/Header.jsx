@@ -1,6 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { LuShoppingCart, LuUser, LuMenu, LuX, LuHeart } from "react-icons/lu";
+import {
+  LuShoppingCart,
+  LuUser,
+  LuMenu,
+  LuLogOut,
+  LuHeart,
+  LuLayoutDashboard,
+} from "react-icons/lu";
 import { productService } from "../../../services/productService.js";
 import { cartService } from "../../../services/cartService.js";
 
@@ -20,8 +27,13 @@ const Header = () => {
   const [favCount, setFavCount] = useState(0);
   const [cartCount, setCartCount] = useState(0);
 
+  const [isAdmin, setIsAdmin] = useState(
+    () => localStorage.getItem("userRole") === "admin",
+  );
+
   const verificarSesion = useCallback(async () => {
     const logged = localStorage.getItem("isLoggedIn") === "true";
+    setIsAdmin(localStorage.getItem("userRole") === "admin");
     setIsLoggedIn(logged);
 
     const nombreCompleto = localStorage.getItem("userName") || "Usuario";
@@ -150,6 +162,15 @@ const Header = () => {
               >
                 <LuUser size={24} />
               </Link>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="p-2 transition-colors hover:text-neos"
+                  title="Panel de Administración"
+                >
+                  <LuLayoutDashboard size={24} />
+                </Link>
+              )}
               <Link
                 to="/favoritos"
                 className="relative p-2 transition-colors hover:text-neos group"
@@ -182,7 +203,7 @@ const Header = () => {
               onClick={handleLogout}
               className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-gray-100 uppercase transition-colors border border-gray-400 rounded-full cursor-pointer hover:bg-neos"
             >
-              <LuX size={16} /> Salir
+              <LuLogOut size={16} /> Salir
             </button>
           ) : (
             <Link
@@ -199,7 +220,7 @@ const Header = () => {
             onClick={() => setMenuAbierto(!menuAbierto)}
             className="p-2 text-gray-300 cursor-pointer hover:text-neos"
           >
-            {menuAbierto ? <LuX size={28} /> : <LuMenu size={28} />}
+            {menuAbierto ? <LuLogOut size={28} /> : <LuMenu size={28} />}
           </button>
         </div>
       </div>
@@ -247,6 +268,16 @@ const Header = () => {
                   <LuUser size={24} />
                   <span>Mi Perfil</span>
                 </Link>
+                {isAdmin && (
+                  <Link
+                    to="/admin"
+                    onClick={cerrarMenu}
+                    className="flex items-center gap-3 py-1 transition-colors hover:text-neos"
+                  >
+                    <LuLayoutDashboard size={24} />
+                    <span>Admin Panel</span>
+                  </Link>
+                )}
                 <Link
                   to="/favoritos"
                   onClick={cerrarMenu}
