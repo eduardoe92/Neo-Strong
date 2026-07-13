@@ -48,7 +48,7 @@ export const authService = {
     },
     getProfile: async () => {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${API_BASE_URL}/users/profile`, { // Ajusta la ruta si es distinta
+        const response = await fetch(`${API_URL}/profile`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -57,13 +57,13 @@ export const authService = {
         });
 
         const data = await response.json();
-        if (!response.ok) throw new Error(data.mensaje || "Error al obtener perfil.");
+        if (!response.ok) throw new Error(data.message || "Error al obtener perfil.");
         return data;
     },
 
     updateProfile: async (userData) => {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${API_BASE_URL}/users/profile`, {
+        const response = await fetch(`${API_URL}/profile`, {
             method: "PUT",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -73,7 +73,7 @@ export const authService = {
         });
 
         const data = await response.json();
-        if (!response.ok) throw new Error(data.mensaje || "Error al actualizar perfil.");
+        if (!response.ok) throw new Error(data.message || "Error al actualizar perfil.");
         return data;
     },
 };
