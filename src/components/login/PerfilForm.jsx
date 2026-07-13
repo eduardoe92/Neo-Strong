@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { authService } from "../../services/authService";
+import PerfilModal from "./PerfilModal";
 
 const PerfilForm = () => {
   const [usuario, setUsuario] = useState({
@@ -10,6 +11,12 @@ const PerfilForm = () => {
     fechaNacimiento: "",
   });
 
+  const [modal, setModal] = useState({
+    isOpen: false,
+    mensaje: "",
+    esError: false,
+  });
+
   useEffect(() => {
     const cargarDatos = async () => {
       try {
@@ -18,11 +25,11 @@ const PerfilForm = () => {
           nombre: data.name || "",
           email: data.email || "",
           telefono: data.phone || "",
-          direccion: data.address || "",
-          fechaNacimiento: data.birthDate ? data.birthDate.split("T")[0] : "",
+          direccion: data.shipping_address || "",
+          fechaNacimiento: data.birth_date ? data.birth_date.split("T")[0] : "",
         });
       } catch (err) {
-        console.error(err);
+        console.error("Error al cargar perfil:", err);
       }
     };
     cargarDatos();
@@ -30,13 +37,28 @@ const PerfilForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const datosParaEnviar = {
+      name: usuario.nombre,
+      phone: usuario.telefono,
+      birth_date: usuario.fechaNacimiento,
+      shipping_address: usuario.direccion,
+    };
+
     try {
-      await authService.updateProfile(usuario);
-      alert("Perfil actualizado correctamente");
+      await authService.updateProfile(datosParaEnviar);
+      setModal({
+        isOpen: true,
+        mensaje: "Perfil actualizado correctamente",
+        esError: false,
+      });
       localStorage.setItem("userName", usuario.nombre);
       window.dispatchEvent(new Event("loginSuccess"));
     } catch (err) {
-      alert("Error al actualizar: " + err.message);
+      setModal({
+        isOpen: true,
+        mensaje: "Error al actualizar: " + err.message,
+        esError: true,
+      });
     }
   };
 
@@ -60,6 +82,35 @@ const PerfilForm = () => {
               className="w-full p-3 text-white border border-gray-600 outline-none rounded-xl bg-fondo focus:border-neos"
             />
           </div>
+
+          <div>
+            <label className="block mb-1 text-xs font-bold text-gray-400 uppercase">
+              Email
+            </label>
+            <input
+              type="email"
+              value={usuario.email}
+              onChange={(e) =>
+                setUsuario({ ...usuario, email: e.target.value })
+              }
+              className="w-full p-3 text-white border border-gray-600 outline-none rounded-xl bg-fondo focus:border-neos"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-xs font-bold text-gray-400 uppercase">
+              Fecha de Nacimiento
+            </label>
+            <input
+              type="date"
+              value={usuario.fechaNacimiento}
+              onChange={(e) =>
+                setUsuario({ ...usuario, fechaNacimiento: e.target.value })
+              }
+              className="w-full p-3 text-white border border-gray-600 outline-none rounded-xl bg-fondo focus:border-neos"
+            />
+          </div>
+
           <div>
             <label className="block mb-1 text-xs font-bold text-gray-400 uppercase">
               Teléfono
@@ -73,6 +124,7 @@ const PerfilForm = () => {
               className="w-full p-3 text-white border border-gray-600 outline-none rounded-xl bg-fondo focus:border-neos"
             />
           </div>
+
           <div>
             <label className="block mb-1 text-xs font-bold text-gray-400 uppercase">
               Dirección
@@ -86,6 +138,7 @@ const PerfilForm = () => {
               className="w-full p-3 text-white border border-gray-600 outline-none rounded-xl bg-fondo focus:border-neos"
             />
           </div>
+
           <button
             type="submit"
             className="w-full py-3 mt-4 font-black text-white uppercase cursor-pointer rounded-xl bg-neos hover:bg-orange-600"
@@ -94,6 +147,12 @@ const PerfilForm = () => {
           </button>
         </form>
       </div>
+      <PerfilModal
+        isOpen={modal.isOpen}
+        onClose={() => setModal({ ...modal, isOpen: false })}
+        mensaje={modal.mensaje}
+        esError={modal.esError}
+      />
     </div>
   );
 };

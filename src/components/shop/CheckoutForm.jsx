@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { FiLock, FiCheckCircle } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { FiLock } from "react-icons/fi";
 import { cartService } from "../../services/cartService";
+import CheckoutModal from "./CheckoutModal";
 
 const CheckoutForm = () => {
-  const navigate = useNavigate();
   const [procesando, setProcesando] = useState(false);
-  const [showModal, setShowModal] = useState(false);
   const [cardNumber, setCardNumber] = useState("");
+  const [modal, setModal] = useState({
+    isOpen: false,
+    esError: false,
+    mensaje: "",
+  });
 
   const handleCardChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
@@ -17,9 +20,16 @@ const CheckoutForm = () => {
 
   const handleDateChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
-    if (value.length > 4) value = value.substring(0, 4);
-    if (value.length >= 3) {
-      value = value.substring(0, 2) + "/" + value.substring(2);
+    if (value.length === 1 && parseInt(value) > 1) {
+      value = "0" + value;
+    }
+    if (value.length === 2) {
+      let m = parseInt(value);
+      if (m === 0) value = "01";
+      if (m > 12) value = "12";
+    }
+    if (value.length > 2) {
+      value = value.substring(0, 2) + "/" + value.substring(2, 4);
     }
     e.target.value = value;
   };
@@ -30,40 +40,32 @@ const CheckoutForm = () => {
 
     try {
       await cartService.checkout();
-    } catch (error) {
-      console.error("Error al finalizar pago:", error);
+      localStorage.removeItem("cart");
+      setModal({
+        isOpen: true,
+        esError: false,
+        mensaje: "Tu pedido ha sido procesado correctamente.",
+      });
+    } catch {
+      setModal({
+        isOpen: true,
+        esError: true,
+        mensaje:
+          "Hubo un problema al procesar tu pago. Por favor, inténtalo nuevamente.",
+      });
+    } finally {
+      setProcesando(false);
     }
-
-    localStorage.removeItem("cart");
-
-    setProcesando(false);
-    setShowModal(true);
   };
 
   return (
     <div className="w-full animate-fade-in">
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-sm p-8 text-center border border-gray-700 bg-strong rounded-3xl animate-bounce-in">
-            <FiCheckCircle className="mx-auto mb-4 text-green-500" size={48} />
-            <h3 className="text-xl font-black text-white uppercase">
-              ¡Pago Exitoso!
-            </h3>
-            <p className="mt-2 mb-6 text-sm text-gray-400">
-              Tu pedido ha sido procesado correctamente.
-            </p>
-            <button
-              onClick={() => {
-                navigate("/");
-                setTimeout(() => window.location.reload(), 100);
-              }}
-              className="w-full py-3 font-black text-white uppercase rounded-xl bg-neos hover:bg-orange-600"
-            >
-              Volver al inicio
-            </button>
-          </div>
-        </div>
-      )}
+      <CheckoutModal
+        isOpen={modal.isOpen}
+        esError={modal.esError}
+        mensaje={modal.mensaje}
+        onClose={() => setModal({ ...modal, isOpen: false })}
+      />
 
       <h2 className="mb-8 text-2xl font-black text-center text-gray-100 uppercase">
         Datos de <span className="text-neos">Pago</span>
@@ -109,6 +111,8 @@ const CheckoutForm = () => {
                 placeholder="MM/AA"
                 maxLength="5"
                 onChange={handleDateChange}
+                pattern="(0[1-9]|1[0-2])\/\d{2}"
+                title="Ingresa una fecha válida (MM/AA)"
                 required
                 className="w-full p-3 font-mono text-white border border-gray-600 outline-none rounded-xl bg-fondo focus:border-neos"
               />
@@ -145,6 +149,7 @@ const CheckoutForm = () => {
           )}
         </button>
       </form>
+
       <div className="mt-6 text-center text-gray-500">
         <p className="flex items-center justify-center gap-2 text-[15px] uppercase tracking-widest font-bold">
           Este es un entorno de demostración

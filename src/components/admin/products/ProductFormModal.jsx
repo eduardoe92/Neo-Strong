@@ -71,7 +71,7 @@ export default function ProductFormModal({
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
         <div className="w-full max-w-2xl overflow-hidden border border-gray-800 shadow-2xl bg-strong rounded-3xl">
           <div className="flex items-center justify-between p-6 border-b border-gray-800 bg-fondo/50">
             <h2 className="text-xl font-black text-white uppercase">
