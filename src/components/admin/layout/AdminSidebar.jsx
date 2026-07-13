@@ -7,6 +7,7 @@ import {
   LuLogOut,
   LuMenu,
   LuX,
+  LuExternalLink,
 } from "react-icons/lu";
 
 export default function AdminSidebar() {
@@ -24,10 +25,12 @@ export default function AdminSidebar() {
 
   const navLinksContent = (
     <nav className="flex flex-col gap-2">
+      <div className="my-2 border-b border-gray-800/50" />
       {[
         { to: "/admin", icon: LuLayoutDashboard, label: "Dashboard" },
         { to: "/admin/products", icon: LuPackage, label: "Productos" },
         { to: "/admin/orders", icon: LuShoppingCart, label: "Pedidos" },
+        { to: "/", icon: LuExternalLink, label: "Plataforma" },
       ].map(({ to, icon: Icon, label }) => (
         <NavLink
           key={to}
