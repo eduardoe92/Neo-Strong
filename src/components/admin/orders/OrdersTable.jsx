@@ -15,7 +15,7 @@ const getSortIcon = (columnKey, sortConfig) => {
 export default function OrdersTable({ orders, onStatusChange }) {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 11;
 
   const requestSort = (key) => {
     let direction = "asc";

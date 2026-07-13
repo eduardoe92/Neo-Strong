@@ -9,8 +9,7 @@ import {
 } from "react-icons/fa";
 
 const SortIcon = ({ column, sortConfig }) => {
-  if (sortConfig?.key !== column)
-    return <FaSort className="inline ml-2 opacity-30" />;
+  if (sortConfig?.key !== column) return <FaSort className="inline ml-2" />;
   return sortConfig.direction === "asc" ? (
     <FaSortUp className="inline ml-2 text-neos" />
   ) : (
@@ -35,8 +34,8 @@ export default function ProductsTable({
   }
 
   return (
-    <div className="overflow-x-auto border border-gray-800 rounded-2xl bg-strong">
-      <table className="w-full text-left border-collapse table-fixed">
+    <div className="overflow-hidden border border-gray-800 bg-strong rounded-2xl">
+      <table className="w-full text-left table-fixed">
         <thead>
           <tr className="text-xs font-black text-gray-500 uppercase border-b border-gray-800 bg-fondo/50">
             <th

@@ -12,7 +12,12 @@ export default function DashboardView() {
   const [isLoading, setIsLoading] = useState(true);
   const [showRevenue, setShowRevenue] = useState(false);
 
-  const [stats] = useState({ revenue: 15450000, order_count: 15 });
+  const finalizados = orders.filter((o) => o.status === "finalizado");
+  const totalRevenue = finalizados.reduce(
+    (acc, curr) => acc + (curr.total || 0),
+    0,
+  );
+  const totalOrders = finalizados.length;
 
   useEffect(() => {
     const loadDashboardData = async () => {
@@ -64,7 +69,7 @@ export default function DashboardView() {
         <StatCard
           title="Ingresos Totales"
           value={
-            showRevenue ? `$ ${stats.revenue.toLocaleString()}` : "*********"
+            showRevenue ? `$ ${totalRevenue.toLocaleString()}` : "*********"
           }
           icon={FaChartLine}
           colorClass="bg-neos/10 text-neos"
@@ -83,7 +88,7 @@ export default function DashboardView() {
         />
         <StatCard
           title="Pedidos Finalizados"
-          value={stats.order_count}
+          value={totalOrders}
           icon={FaShoppingCart}
           colorClass="bg-orange-500/10 text-orange-500"
         />

@@ -15,7 +15,7 @@ export default function AdminProductsView() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({
-    key: "name",
+    key: null,
     direction: "asc",
   });
   const itemsPerPage = 8;
